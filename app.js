@@ -175,9 +175,18 @@ const promptUser = () => {
   promptUser()
   .then(promptProject)
   .then(portfolioData => {
-    //const pageHTML = generatePage(portfolioData);
-    const pageHTML = generatePage(mockData);
-    fs.writeFile('./index.html', pageHTML, err => {
-        if (err) throw err;
-    });
-  });
+    return generatePage(portfolioData);
+  })
+  .then(pageHTML => {
+    return fs.writeFile(pageHTML);
+  })
+  .then(writeFileRepsonse => {
+    console.log(writeFileRepsonse);
+    return fs.copyFile();
+  })
+  .then(copyFileRespone => {
+    console.log(copyFileRespone);
+  })
+  .catch(err => {
+    console.log(err);
+  })
